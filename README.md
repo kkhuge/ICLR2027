@@ -41,7 +41,7 @@ For example:
 python reproduce.py --group heterogeneity --stage all
 ```
 
-The corresponding plotting programs are listed in `reproduce.py`. Plots are saved as PDFs in `figure_output/` and displayed with `plt.show()`. Use `--dry-run` to inspect commands without running them. Existing complete training results are skipped unless `--force` is specified.
+The plotting scripts are listed in reproduce.py, and the generated figures are saved in figure_output/
 
 
 ## Dependency
