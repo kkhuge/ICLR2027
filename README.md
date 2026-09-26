@@ -1,6 +1,6 @@
 # Understanding Generalization in Client-Level DP-FL: A Hierarchical Stability Analysis
 
-This repository contains the code for the experiments and figures in *Understanding Generalization in Client-Level DP-FL: A Hierarchical Stability Analysis*. 
+This repository contains the code for the experiments and figures in *Understanding Generalization in Client-Level DP-FL: A Hierarchical Stability Analysis*.
 
 ## Generating the data
 
@@ -23,17 +23,17 @@ python reproduce.py --stage plot --group all
 
 Use `--group` to run only one experiment family:
 
-| Group                 | Figures                                                      |
-| --------------------- | ------------------------------------------------------------ |
-| `femnist`             | Natural non-IID training, seen-client, and unseen-client loss and accuracy |
-| `heterogeneity`       | Within-client and cross-client generalization gaps           |
-| `local_size`          | Within-client and cross-client gaps versus local dataset size |
-| `learning_rate`       | Training loss and generalization gap under learning-rate decay |
-| `privacy`             | Generalization gaps under fixed and varying privacy budgets  |
-| `cifar_sigma`         | Accuracy and gap versus noise multiplier                     |
-| `cifar_clip`          | Accuracy and gap versus clipping threshold                   |
-| `cifar_participation` | Accuracy and gap versus client participation                 |
-| `cifar_tau`           | Accuracy and gap versus local training steps                |
+| Group | Figures |
+| --- | --- |
+| `femnist` | Training, within-client test, and unseen-client test loss and accuracy under a natural non-IID partition |
+| `heterogeneity` | Within-client and unseen-client generalization gaps |
+| `local_size` | Within-client and unseen-client gaps versus local dataset size |
+| `learning_rate` | Training loss and generalization gap under learning-rate decay |
+| `privacy` | Generalization gaps under fixed and varying privacy budgets |
+| `cifar_sigma` | Accuracy and gap versus noise multiplier |
+| `cifar_clip` | Accuracy and gap versus clipping threshold |
+| `cifar_participation` | Accuracy and gap versus client participation |
+| `cifar_tau` | Accuracy and gap versus local training steps |
 
 For example:
 
@@ -41,29 +41,15 @@ For example:
 python reproduce.py --group heterogeneity --stage all
 ```
 
-The corresponding plotting programs are listed in `reproduce.py`. The plotting stage requires existing training results. Plots are saved as cropped vector PDFs in `figure_output/` without opening display windows by default. All panels use STIXGeneral text, STIX mathematical text, and a 16 pt base font size before scaling in the paper. To save and display an individual figure, use:
+The plotting scripts are listed in `reproduce.py`, and the generated figures are saved as PDFs in `figure_output/`.
 
-```bash
-python plot_runner.py gap_fmnist_epsilon_vary.py --show
-```
+## Dependencies
 
-Use `--dry-run` with `reproduce.py` to inspect commands without running them. Existing complete training results are skipped unless `--force` is specified.
-
-
-## Dependency
-
-Python >= 3.10
-
-PyTorch = 2.9.0
-
-torchvision = 0.24.0
-
-NumPy = 2.1.2
-
-Matplotlib = 3.10.7
-
-h5py = 3.16.0
-
-Pillow >= 10.0
-
-tensorboardX
+- Python >= 3.10
+- PyTorch = 2.9.0
+- torchvision = 0.24.0
+- NumPy = 2.1.2
+- Matplotlib = 3.10.7
+- h5py = 3.16.0
+- Pillow >= 10.0
+- tensorboardX
