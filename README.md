@@ -33,7 +33,7 @@ Use `--group` to run only one experiment family:
 | `cifar_sigma`         | Accuracy and gap versus noise multiplier                     |
 | `cifar_clip`          | Accuracy and gap versus clipping threshold                   |
 | `cifar_participation` | Accuracy and gap versus client participation                 |
-| `cifar_tau`           | Accuracy and gap versus local training epochs                |
+| `cifar_tau`           | Accuracy and gap versus local training steps                |
 
 For example:
 
@@ -41,7 +41,13 @@ For example:
 python reproduce.py --group heterogeneity --stage all
 ```
 
-The plotting scripts are listed in reproduce.py, and the generated figures are saved in figure_output/
+The corresponding plotting programs are listed in `reproduce.py`. The plotting stage requires existing training results. Plots are saved as cropped vector PDFs in `figure_output/` without opening display windows by default. All panels use STIXGeneral text, STIX mathematical text, and a 16 pt base font size before scaling in the paper. To save and display an individual figure, use:
+
+```bash
+python plot_runner.py gap_fmnist_epsilon_vary.py --show
+```
+
+Use `--dry-run` with `reproduce.py` to inspect commands without running them. Existing complete training results are skipped unless `--force` is specified.
 
 
 ## Dependency
@@ -59,3 +65,5 @@ Matplotlib = 3.10.7
 h5py = 3.16.0
 
 Pillow >= 10.0
+
+tensorboardX

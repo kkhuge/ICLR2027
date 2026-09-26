@@ -23,7 +23,7 @@ PLOTS = {
     "heterogeneity": ("gap1_fmnist_niid.py", "gap2_fmnist_niid.py"),
     "local_size": ("gap1_fmnist_local_datasize.py", "gap2_fmnist_local_datasize.py"),
     "learning_rate": ("fmnist_training_loss_eta.py", "fmnist_gap_eta.py"),
-    "privacy": ("gap_fmnist_fix_epsilon.py", "gap_fmnist_epsilon.py"),
+    "privacy": ("gap_fmnist_epsilon.py", "gap_fmnist_epsilon_vary.py"),
     "cifar_sigma": ("cifar10_acc_sigma.py", "cifar10_gap_sigma.py"),
     "cifar_clip": ("cifar10_acc_clip.py", "cifar10_gap_clip.py"),
     "cifar_participation": ("cifar10_acc_client_number.py", "cifar10_gap_client_number.py"),
@@ -171,6 +171,13 @@ def runs_by_group() -> dict[str, list[Run]]:
                     "fmnist_all_data_1_random_iid", rounds, "epslin",
                     seed=seed, sigma=None, epsilon=epsilon,
                 ))
+
+    # Figure 5 right uses T=500, seed=0; epsilon=10 is included above.
+    for epsilon in (20, 50):
+        runs["privacy"].append(Run(
+            "fmnist_all_data_1_random_iid", 500, "epslin",
+            seed=0, sigma=None, epsilon=epsilon,
+        ))
 
     default = Run("cifar10_all_data_1_random_iid", 500, "lenett500s0p9c0p2")
     for group in ("cifar_sigma", "cifar_tau"):

@@ -8,9 +8,6 @@ matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot_style import apply_plot_style
-
-apply_plot_style()
 
 ROOT = Path(__file__).resolve().parent
 RESULT_DIR = ROOT / "result_loss" / "fedavg5"
@@ -22,6 +19,7 @@ EPSILON_CONFIGS = (
     (6, "tab:green", "^"),
 )
 TAIL_ROUNDS = 20
+FONT_SIZE = 16
 
 
 def result_stem(epsilon, rounds, seed):
@@ -98,6 +96,23 @@ def load_epsilon_mean_gaps(epsilon):
         dtype=float,
     )
     return seed_gaps, mean_gaps
+
+plt.rcParams.update(
+    {
+        "font.family": "serif",
+        "font.serif": ["STIXGeneral"],
+        "mathtext.fontset": "stix",
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "font.size": FONT_SIZE,
+        "axes.titlesize": FONT_SIZE,
+        "axes.labelsize": FONT_SIZE,
+        "figure.titlesize": FONT_SIZE,
+        "legend.fontsize": FONT_SIZE,
+        "xtick.labelsize": FONT_SIZE,
+        "ytick.labelsize": FONT_SIZE,
+    }
+)
 
 fig, ax = plt.subplots(figsize=(5, 4))
 plot_positions = np.arange(len(TRAINING_HORIZONS))
