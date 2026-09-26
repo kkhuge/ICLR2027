@@ -19,12 +19,12 @@ STEM = (
     "femnist_hn0_lenet_sigma0p9_C0p2_clientdp_sens1_T2000_"
     "lr0p1_tau5_bs64_constant_seed0_n"
 )
-SMOOTH = 1
+SMOOTH = 5
 MAX_ROUND = 1200
 CURVES = (
-    ("acc_participating_train", "Training accuracy", "tab:red"),
-    ("acc_participating_val", "Seen-client accuracy", "tab:orange"),
-    ("acc_unseen_clients", "Unseen-client accuracy", "tab:green"),
+    ("acc_participating_train", "Training", "tab:red"),
+    ("acc_participating_val", "Within-Client Test", "tab:orange"),
+    ("acc_unseen_clients", "Unseen-Client Test", "tab:green"),
 )
 
 
@@ -62,10 +62,10 @@ for name, label, color in CURVES:
 plt.xlabel("Communication Round")
 plt.ylabel("Accuracy")
 plt.xlim(0, MAX_ROUND)
-plt.ylim(0.0, 1.0)
+plt.ylim(0.7, 0.8)
 plt.xticks(np.arange(0, MAX_ROUND + 1, 400))
-plt.yticks(np.arange(0.0, 1.01, 0.2))
+plt.yticks(np.arange(0.7, 0.81, 0.02))
 plt.grid(True, alpha=0.28)
-plt.legend(loc="lower right", framealpha=0.9)
+plt.legend(handlelength=2.3, loc='upper left', bbox_to_anchor=(-0.02, 1.02))
 plt.tight_layout()
 plt.show()

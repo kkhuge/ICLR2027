@@ -17,7 +17,7 @@ from prepare_hierarchical_alpha_sweep import (
 )
 
 
-DEFAULT_SIZES = (80, 60, 50, 20)
+DEFAULT_SIZES = (80, 100, 120)
 
 
 def short_key(size, seed):

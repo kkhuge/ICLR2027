@@ -20,9 +20,9 @@ SMOOTH_WINDOW = 20
 SEED = 2
 
 EXPERIMENTS = (
-    (20, r"$|\mathcal{D}_{i}|=20$", "tab:red"),
-    (50, r"$|\mathcal{D}_{i}|=50$", "tab:orange"),
-    (80, r"$|\mathcal{D}_{i}|=80$", "tab:green"),
+    (80, r"$|\mathcal{D}_{i}|=80$", "tab:red"),
+    (100, r"$|\mathcal{D}_{i}|=100$", "tab:orange"),
+    (120, r"$|\mathcal{D}_{i}|=120$", "tab:green"),
 )
 
 
@@ -66,12 +66,12 @@ for size, label, color in EXPERIMENTS:
 
 ax.axhline(0.0, color="black", linestyle="-", linewidth=1.0, alpha=0.7)
 ax.set_xlabel("Communication Round")
-ax.set_ylabel("Seen Loss - Training Loss")
+ax.set_ylabel("Within-Client Gen")
 ax.set_xlim(0, TOTAL_ROUNDS)
 ax.set_xticks(np.arange(0, TOTAL_ROUNDS + 1, 300))
-ax.set_ylim(0, 0.25)
-ax.set_yticks(np.arange(0, 0.251, 0.05))
+ax.set_ylim(0, 0.15)
+ax.set_yticks(np.arange(0, 0.151, 0.05))
 ax.grid(True, alpha=0.28)
-ax.legend(handlelength=2.3)
+ax.legend(handlelength=2)
 fig.tight_layout()
 plt.show()

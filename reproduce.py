@@ -144,7 +144,7 @@ def runs_by_group() -> dict[str, list[Run]]:
         unseen="data/fmnist/data/hiergen/unseen_fhiids2.pkl", setting="iid",
     ))
 
-    for size in (20, 50, 80):
+    for size in (80, 100, 120):
         key = f"fhls{size}s2"
         runs["local_size"].append(Run(
             f"fmnist_{key}", 1200, f"n{size}s2", seed=2,
@@ -223,7 +223,7 @@ def prepare(group: str, python: str, dry_run: bool) -> None:
     elif group == "local_size":
         execute([
             python, "data/fmnist/prepare_hierarchical_local_size_sweep.py",
-            "--sizes", "20", "50", "80", "--seed", "2",
+            "--sizes", "80", "100", "120", "--seed", "2",
         ], dry_run)
     elif group in ("learning_rate", "privacy"):
         execute([python, "data/fmnist/generate_iid.py"], dry_run)

@@ -82,7 +82,7 @@ for alpha_key, seed, label, color in EXPERIMENTS:
 
 ax.axhline(0.0, color="black", linestyle="-", linewidth=1.0, alpha=0.7)
 ax.set_xlabel("Communication Round")
-ax.set_ylabel("Seen Loss - Training Loss")
+ax.set_ylabel("Within-Client Gen")
 ax.set_xlim(0, TOTAL_ROUNDS)
 ax.set_xticks(np.arange(0, TOTAL_ROUNDS + 1, 300))
 ax.set_ylim(0, 0.12)

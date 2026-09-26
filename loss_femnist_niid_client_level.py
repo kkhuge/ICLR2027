@@ -21,9 +21,9 @@ STEM = (
 SMOOTH = 1
 MAX_ROUND = 1200
 CURVES = (
-    ("loss_participating_train", "Training loss", "tab:red"),
-    ("loss_participating_val", "Seen-client loss", "tab:orange"),
-    ("loss_unseen_clients", "Unseen-client loss", "tab:green"),
+    ("loss_participating_train", "Training", "tab:red"),
+    ("loss_participating_val", "Within-Client Test", "tab:orange"),
+    ("loss_unseen_clients", "Unseen-Client Test", "tab:green"),
 )
 
 

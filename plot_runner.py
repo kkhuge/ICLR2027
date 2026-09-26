@@ -1,13 +1,15 @@
 """Run a plotting script and save its displayed figures as tightly cropped PDFs."""
 
 import argparse
-import runpy
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.text import Text
+from matplotlib.transforms import Bbox
+from plot_style import apply_plot_style, PLOT_FONT_SIZE
 
 
 ROOT = Path(__file__).resolve().parent
@@ -26,8 +28,8 @@ def main() -> None:
     parser.add_argument(
         "--pad-inches",
         type=float,
-        default=0.02,
-        help="Safety margin around the tight bounding box (default: 0.02)",
+        default=None,
+        help="Override the paper's crop with an automatic tight crop and this margin",
     )
     parser.add_argument(
         "--show",
@@ -48,10 +50,25 @@ def main() -> None:
         for index, number in enumerate(figure_numbers, start=1):
             suffix = "" if len(figure_numbers) == 1 else f"_{index}"
             target = output_dir / f"{script.stem}{suffix}.pdf"
-            plt.figure(number).savefig(
+            fig = plt.figure(number)
+            apply_plot_style()
+            fig.set_size_inches(5, 4)
+            fig.canvas.draw()
+            for text in fig.findobj(match=Text):
+                text.set_fontfamily("STIXGeneral")
+                text.set_math_fontfamily("stix")
+                text.set_fontsize(PLOT_FONT_SIZE)
+            fig.tight_layout()
+            # Match the crops used by the current paper. Figure 1 has a
+            # separately updated crop; the other panels share one crop.
+            points = ((15, 18, 345, 273) if script.stem in (
+                "loss_femnist_niid_client_level", "acc_femnist_niid_client_level"
+            ) else (15.28, 15.28, 344.72, 272.72))
+            crop = Bbox.from_extents(*(value / 72 for value in points))
+            fig.savefig(
                 target,
-                bbox_inches="tight",
-                pad_inches=args.pad_inches,
+                bbox_inches=crop if args.pad_inches is None else "tight",
+                pad_inches=0 if args.pad_inches is None else args.pad_inches,
             )
             print(f"Saved {target}", flush=True)
         if args.show:
@@ -59,7 +76,11 @@ def main() -> None:
         return None
 
     plt.show = save_then_show
-    runpy.run_path(str(script), run_name="__main__")
+    source = script.read_text(encoding="utf-8-sig")
+    if not args.show:
+        source = source.replace('matplotlib.use("TkAgg")', 'matplotlib.use("Agg")')
+    exec(compile(source, str(script), "exec"),
+         {"__name__": "__main__", "__file__": str(script)})
 
 
 if __name__ == "__main__":
